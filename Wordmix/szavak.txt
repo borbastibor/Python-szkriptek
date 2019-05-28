@@ -1,0 +1,16 @@
+voice
+car
+door
+implement
+doctor
+generator
+cellphone
+location
+comment
+route
+source
+picture
+convoy
+confidence
+exercise
+opportunity
