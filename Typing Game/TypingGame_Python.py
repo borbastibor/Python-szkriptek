@@ -1,5 +1,5 @@
 import tkinter
-from random import *
+from random import randint
 
 amount = 5
 misses = 0
