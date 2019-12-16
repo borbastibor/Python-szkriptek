@@ -94,6 +94,7 @@ def dropTables(cursor):
 # Függvény az üres táblák létrehozására #
 #########################################
 def createTables(cursor):
+    # cascad-olást meg kell oldani!!!!
     # kocsik tábla létrehozása
     print("'kocsik' tábla létrehozása...", end="")
     cursor.execute("CREATE TABLE IF NOT EXISTS kocsik (" + 
