@@ -25,6 +25,10 @@
 #   létrehozási dátum_idő(mp pontosan)_dump.sql - itt a dátum és idő  #
 # ugyanaz lesz, mint az adatbázisnál                                  #
 #                                                                     #
+# 4. Ez a program nem egy általános célú adatbázis kezelő.            #
+# Kifejezetten csak a MunkaBeosztas projekthez készült, illetve       #
+# k...vára ráértem munkaidőben és nem tudtam mást találni.            # 
+#                                                                     #
 # Borbás Tibor                                                        #
 # Szolnok                                                             #
 # 2019. december 16.                                                  #
