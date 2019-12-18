@@ -119,8 +119,10 @@ def createTables(cursor):
                    "utemezheto INTEGER NOT NULL DEFAULT 1," +
                    "dolgozoid INTEGER," +
                    "kocsiid INTEGER," +
-                   "FOREIGN KEY (dolgozoid) REFERENCES dolgozok(id)," +
-                   "FOREIGN KEY (kocsiid) REFERENCES kocsik(id))")
+                   "FOREIGN KEY (dolgozoid) REFERENCES dolgozok(id) " +
+                   "ON DELETE CASCADE," +
+                   "FOREIGN KEY (kocsiid) REFERENCES kocsik(id) " +
+                   "ON DELETE CASCADE)")
     print("Ok")
 
 #######################################################
@@ -235,19 +237,27 @@ def printKocsik(cursor):
 def customSQLQuery(cursor):
     buffer = ""
     while True:
-        line = input("\nSQL mondat: ")
-        if line == "":
+        line = input("\nSQL mondat(kilépés q-ra): ")
+        if line == "q":
             break
+        fname = datetime.datetime.now().strftime("%Y%m%d_%Hh%Mm%Ss") + "_result.txt"
         buffer += line
         if sqlite3.complete_statement(buffer):
             try:
                 buffer = buffer.strip()
                 cursor.execute(buffer)
                 if buffer.lstrip().upper().startswith("SELECT"):
-                    print(cursor.fetchall())
+                    result = cursor.fetchall()
+                    print(result)
+                    with open(fname, "w", encoding="utf8") as f:
+                        f.write("%s\n" % buffer)
+                        for element in result:
+                            lstToStr = " '".join([str(i) + "';" for i in element])
+                            f.write("'%s\n" % lstToStr)
+                    print("\nA lekérdezés eredménye kiírásra került a " + fname + " fájlba!")
             except sqlite3.Error as e:
                 print("\nHiba: ", e.args[0])
-            buffer = ""
+        buffer = ""
 
 ###########################################
 # Függvény adatbázis dump fájl készítésre #
@@ -328,7 +338,7 @@ if __name__ == "__main__":
             else:
                 dumpDataBase(conn,fname)
 
-    conn.close()
+    if conn is not None: conn.close()
 ########################################################
 #-------------------- Program vége --------------------#
 ########################################################
